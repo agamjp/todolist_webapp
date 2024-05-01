@@ -1,4 +1,0 @@
-load
-heat dinner
-wipe tables
-sweep
