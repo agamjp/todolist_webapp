@@ -31,9 +31,10 @@ def completion_mode(index_, todos=todolist):
     st.rerun()
 
 
-st.title("My Todo App title")
-st.subheader("My Todo App title, just smaller")
-st.write("And with teeny tiny letters for people with good eyes!!!")
+st.title("My Todo App")
+st.subheader("An App of Mine with Todos")
+st.write("It is an <b>App</b> where I can add and edit <b>Todos</b>, and it belongs to Me",
+         unsafe_allow_html=True)
 
 mode = st.radio("Select mode:", key="todolist_mode",
                 options=["completion", "edition"], horizontal=True)
