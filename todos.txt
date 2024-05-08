@@ -1,4 +1,2 @@
-load
-heat dinner
-wipe tables
-sweep
+write code
+write more code

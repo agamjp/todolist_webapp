@@ -27,34 +27,29 @@ def edit_todo(index_, todos=todolist):
 def completion_mode(index_, todos=todolist):
     todos.pop(index_)
     ff.write_todos(todos)
-    del st.session_state[index_]
+    # del st.session_state[index_]
     st.rerun()
 
 
 st.title("My Todo App")
 st.subheader("An App of Mine with Todos")
-st.write("It is an <b>App</b> where I can add and edit <b>Todos</b>, and it belongs to Me",
+st.write("It is an <b>App</b> where I can add and edit <b>Todos</b>, and it belongs to <b>Me</b>",
          unsafe_allow_html=True)
 
 mode = st.radio("Select mode:", key="todolist_mode",
                 options=["completion", "edition"], horizontal=True)
-
-st.write("To do:")
-
-for index, item in enumerate(todolist):
-    checkbox = st.checkbox(item, key=index)
-    if checkbox:
-        print(checkbox)
-        print(item)
-        if mode == "edition":
-            visibility = "visible"
-            st.text_input(label="Edit:", autocomplete=item,
-                          key="edited_todo" + str(index), label_visibility="visible",
-                          on_change=edit_todo(index), placeholder="Enter edited todo")
-        else:
-            visibility = "hidden"
-            completion_mode(index)
-
+if len(todolist) == 0:
+    st.write("The list is empty!")
+else:
+    chosen_todo = st.radio("To do:", key="todo", options=[i for i in todolist], index=None)
+    for index, item in enumerate(todolist):
+        if chosen_todo == item:
+            if mode == "edition":
+                st.text_input(label="Edit selected todo:", autocomplete=item,
+                              key="edited_todo" + str(index), label_visibility="visible",
+                              on_change=edit_todo(index), placeholder="Enter edited todo")
+            else:
+                completion_mode(index)
 
 st.text_input(label="", placeholder=dict.todo_prompt,
               key="new_todo", on_change=add_todo)
